@@ -25,21 +25,34 @@ export default async function handler(req, res) {
   }
 
   try {
+    // Handle body — bisa object atau string
+    let bodyToSend;
+    if (typeof req.body === 'string') {
+      bodyToSend = req.body; // udah string JSON
+    } else {
+      bodyToSend = JSON.stringify(req.body); // convert object ke string
+    }
+
     // Forward body dari frontend ke Discord
     const response = await fetch(WEBHOOK_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(req.body)
+      body: bodyToSend
     });
+
+    // Ambil response text dari Discord untuk debug
+    const responseText = await response.text();
 
     return res.status(response.status).json({
       ok: response.ok,
-      status: response.status
+      status: response.status,
+      discordResponse: responseText || 'no content'
     });
   } catch (error) {
     return res.status(500).json({
       error: 'Failed to send to Discord',
-      message: error.message
+      message: error.message,
+      stack: error.stack
     });
   }
 }
